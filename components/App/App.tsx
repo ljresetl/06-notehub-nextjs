@@ -8,6 +8,7 @@ import NoteList from '../NoteList/NoteList';
 import Modal from '../Modal/Modal';
 import NoteForm from '../NoteForm/NoteForm';
 import css from './App.module.css';
+// import Footer from '../Footer/Footer';
 
 const App = () => {
   const [search, setSearch] = useState('');
@@ -54,6 +55,7 @@ const App = () => {
           <NoteForm onClose={handleCloseModal} />
         </Modal>
       )}
+       {/* <Footer /> */}
     </div>
   );
 };
