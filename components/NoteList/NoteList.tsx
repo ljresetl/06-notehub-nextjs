@@ -1,8 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Note } from '@/types/note';
 import css from './NoteList.module.css';
+
+interface Note {
+  id: string;
+  title: string;
+  content: string;
+  tag: string;
+  createdAt: string;
+}
 
 interface NoteListProps {
   notes: Note[];
