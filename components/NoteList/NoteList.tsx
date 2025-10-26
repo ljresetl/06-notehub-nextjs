@@ -18,20 +18,24 @@ interface NoteListProps {
 export default function NoteList({ notes }: NoteListProps) {
   return (
     <ul className={css.list}>
-      {notes.map((note) => (
-        <li key={note.id} className={css.listItem}>
-          <h3 className={css.title}>{note.title}</h3>
-          <p className={css.content}>{note.content}</p>
-          <p className={css.tag}>Tag: {note.tag}</p>
-          <p className={css.date}>Created: {new Date(note.createdAt).toLocaleDateString()}</p>
-          <div className={css.footer}>
-            <Link href={`/notes/${note.id}`} className={css.link}>
-              View details
-            </Link>
-            <button className={css.button}>Delete</button>
-          </div>
-        </li>
-      ))}
+      {notes.map((note) => {
+        const formattedDate = new Date(note.createdAt).toISOString().split('T')[0];
+
+        return (
+          <li key={note.id} className={css.listItem}>
+            <h3 className={css.title}>{note.title}</h3>
+            <p className={css.content}>{note.content}</p>
+            <p className={css.tag}>Tag: {note.tag}</p>
+            <p className={css.date}>Created: {formattedDate}</p>
+            <div className={css.footer}>
+              <Link href={`/notes/${note.id}`} className={css.link}>
+                View details
+              </Link>
+              <button className={css.button}>Delete</button>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
