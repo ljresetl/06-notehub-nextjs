@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { fetchNotes } from '@/lib/api';
 import { useDebounce } from '@/components/hooks/useDebounce';
 import SearchBox from '@/components/SearchBox/SearchBox';
@@ -10,6 +9,9 @@ import NoteList from '@/components/NoteList/NoteList';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import css from './Notes.module.css';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
+
+
 
 export default function NotesClient() {
   const [search, setSearch] = useState('');
@@ -22,10 +24,11 @@ export default function NotesClient() {
     setPage(1); // скидаємо сторінку одразу при зміні пошуку
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['notes', page, debouncedSearch],
-    queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch }),
-  });
+const { data, isLoading, error } = useQuery({
+  queryKey: ['notes', page, debouncedSearch],
+  queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch }),
+  placeholderData: keepPreviousData,
+});
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);

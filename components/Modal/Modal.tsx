@@ -18,12 +18,28 @@ export default function Modal({ children, onClose }: ModalProps) {
       }
     };
 
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    // 🔒 Заблокувати прокрутку
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = originalOverflow; // 🔓 Відновити прокрутку
+    };
   }, [onClose]);
 
   return (
-    <div className={css.backdrop}>
+    <div className={css.backdrop} role="dialog" aria-modal="true">
       <div className={css.modal} ref={modalRef}>
         {children}
       </div>
