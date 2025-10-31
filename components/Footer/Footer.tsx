@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className={css.footer}>
       <div className={css.content}>
-        <p>© {new Date().getFullYear()} NoteHub. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} NoteHub. All rights reserved1.</p>
         <div className={css.wrap}>
           <p>Developer: Віталій</p>
           <p>
