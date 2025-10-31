@@ -40,13 +40,13 @@ const { data, isLoading, error } = useQuery({
     <div className={css.wrapper}>
       <header className={css.toolbar}>
         <SearchBox value={search} onChange={handleSearchChange} />
-        {data?.totalPages > 1 && (
-          <Pagination
-            pageCount={data.totalPages}
-            currentPage={page}
-            onPageChange={setPage}
-          />
-        )}
+        {typeof data?.totalPages === 'number' && data.totalPages > 1 && (
+  <Pagination
+    pageCount={data.totalPages}
+    currentPage={page}
+    onPageChange={setPage}
+  />
+)}
         <button className={css.button} onClick={handleOpenModal}>
           Create note +
         </button>
